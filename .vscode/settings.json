@@ -1,0 +1,25 @@
+{
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [
+          {
+          "name": "Rails server",
+          "type": "Ruby",
+          "request": "launch",
+          "cwd": "${workspaceRoot}",
+          "program": "${workspaceRoot}/bin/rails",
+          "pathToRDebugIDE": "~/.rbenv/shims/rdebug-ide",
+          "showDebuggerOutput": true,
+          "args": [
+            "server",
+            "-p",
+            "8090",
+            "-b",
+            "0.0.0.0"
+          ]
+        }
+      ]
+    },
+    "emmet.showSuggestionsAsSnippets": true,
+    "emmet.includeLanguages": {"html.erb": "html", "erb": "html"}
+}
