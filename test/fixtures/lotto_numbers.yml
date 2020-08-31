@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  num: 1
+  name: 1번
+  picked_nums_count: 1
+
+two:
+  num: 2
+  name: 2번
+  picked_nums_count: 1
