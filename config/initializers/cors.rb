@@ -14,3 +14,15 @@
 #       methods: [:get, :post, :put, :patch, :delete, :options, :head]
 #   end
 # end
+
+Rails.application.config.middleware.insert_before 0, Rack::Cors do
+    allow do
+        origins '*'
+        resource '*', headers: :any, methods: [:get, :post, :patch, :put, :delete, :options]
+    end
+end
+
+# Note about Rails 6: 
+# Rails 6 has support for blocking requests from unknown hosts, 
+# so origin domains will need to be added there as well.
+# Rails.application.config.hosts << "product.com"
