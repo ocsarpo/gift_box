@@ -14,8 +14,7 @@ class V1::PickedNumsController < ApplicationController
 
     def destroy
         @picked_num = PickedNum.where(id: params[:id]).first
-        if @picked_num
-            @picked_num.destroy
+        if @picked_num&.destroy
             head(:ok)
         else
             head(:unprocessable_entity)
