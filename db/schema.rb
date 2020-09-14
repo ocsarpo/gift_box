@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_14_114444) do
+ActiveRecord::Schema.define(version: 2020_09_14_162550) do
 
   create_table "jwt_denylist", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "jti", null: false
@@ -29,10 +29,19 @@ ActiveRecord::Schema.define(version: 2020_09_14_114444) do
 
   create_table "picked_nums", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "lotto_number_id", null: false
-    t.integer "round", null: false
+    t.bigint "round_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "bonus", default: false
     t.index ["lotto_number_id"], name: "index_picked_nums_on_lotto_number_id"
+    t.index ["round_id"], name: "fk_rails_0090207bb2"
+  end
+
+  create_table "rounds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "round", null: false
+    t.date "draw", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -62,4 +71,5 @@ ActiveRecord::Schema.define(version: 2020_09_14_114444) do
   end
 
   add_foreign_key "picked_nums", "lotto_numbers"
+  add_foreign_key "picked_nums", "rounds"
 end

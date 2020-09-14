@@ -1,11 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  lotto_number: 1
-  round_id: 1
-  bonus: false
+  round: 1
+  draw: 2020-09-15
 
 two:
-  lotto_number: 2
-  round_id: 2
-  bonus: true
+  round: 1
+  draw: 2020-09-15

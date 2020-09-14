@@ -5,3 +5,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+45.times do |t|
+  num = t + 1
+  ln = LottoNumber.new(
+    num: num,
+    name: "#{num} 번"
+  )
+  ln.save!
+end

@@ -12,10 +12,17 @@ Rails.application.routes.draw do
     }
 
   namespace :v1 do
-    resources :picked_nums
+    resources :picked_nums, only: [:index]
+    resources :lotto_numbers, only: [:index, :show]
     resources :sessions, only: [:create, :destroy]
+    resources :rounds, only: [:index, :show]
+  end
+
+  namespace :admin do
+    resources :picked_nums
+    resources :lotto_numbers
+    resources :rounds
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-
-  root 'v1/picked_nums#index'
+  root 'v1/lotto_nums#index'
 end

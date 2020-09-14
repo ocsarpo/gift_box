@@ -37,8 +37,10 @@ class LottoNumberTest < ActiveSupport::TestCase
 
   test "picked_nums_counter increment by 1" do
     num = lotto_numbers(:one)
+    round = rounds(:one)
+
     counter_before = num.picked_nums_count
-    num.picked_nums.create(round: 1)
+    num.picked_nums.create(round: round)
     counter_after = num.picked_nums_count
 
     assert counter_before + 1 == counter_after
