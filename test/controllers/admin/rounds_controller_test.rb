@@ -12,7 +12,7 @@ class Admin::RoundsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create admin_round" do
     assert_difference('Round.count') do
-      post admin_rounds_path, params: { round: { round: 1, draw: Time.zone.now } }, as: :json
+      post admin_rounds_path, params: { round: { round: 3, draw: Time.zone.now } }, as: :json
     end
 
     assert_response 201
@@ -24,7 +24,7 @@ class Admin::RoundsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update admin_round" do
-    patch admin_round_url(@admin_round), params: { round: { round: 1, draw: Time.zone.now } }, as: :json
+    patch admin_round_url(@admin_round), params: { round: { round: 3, draw: Time.zone.now } }, as: :json
     assert_response 200
   end
 
@@ -35,4 +35,5 @@ class Admin::RoundsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response 204
   end
+
 end

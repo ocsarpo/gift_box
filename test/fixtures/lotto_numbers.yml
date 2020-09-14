@@ -9,3 +9,9 @@ two:
   num: 2
   name: 2번
   picked_nums_count: 1
+
+<% 3.upto(45) do |i| %>
+fix_<%= i %>:
+  num: <%= i %>
+  name: guy_<%= i %>
+<% end %>

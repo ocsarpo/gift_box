@@ -3,7 +3,7 @@ require 'test_helper'
 class Admin::PickedNumsControllerTest < ActionDispatch::IntegrationTest
 
   test "index" do
-    get admin_picked_nums_path
+    get admin_picked_nums_path, as: :json
     assert_response :ok
 
     json = JSON(response.body)  
@@ -16,19 +16,21 @@ class Admin::PickedNumsControllerTest < ActionDispatch::IntegrationTest
     post admin_picked_nums_path(picked_num: {
       lotto_number: lotto_numbers(:one),
       round: rounds(:one)
-    })
+    }), as: :json
 
     assert_response :created
   end
 
   test "destroy exist entity" do
-    delete admin_picked_num_path(picked_nums(:one))
+    assert_difference('PickedNum.count', -1) do
+      delete admin_picked_num_path(picked_nums(:one)), as: :json
+    end    
 
     assert_response :ok
   end
 
   test "destroy non exist entity" do
-    delete admin_picked_num_path(10000)
+    delete admin_picked_num_path(10000), as: :json
 
     assert_response :unprocessable_entity
   end

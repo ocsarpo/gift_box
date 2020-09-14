@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Admin::LottoNumbersControllerTest < ActionDispatch::IntegrationTest
   test "index" do
-    get admin_lotto_numbers_path
+    get admin_lotto_numbers_path, as: :json
     assert_response :ok
 
     json = JSON(response.body)  
@@ -15,7 +15,7 @@ class Admin::LottoNumbersControllerTest < ActionDispatch::IntegrationTest
 
   test "show" do
     ln = lotto_numbers(:one)
-    get admin_lotto_number_path(ln)
+    get admin_lotto_number_path(ln), as: :json
     assert_response :ok
 
     lotto_num1 = JSON(ln.to_json)
