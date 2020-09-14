@@ -18,7 +18,7 @@ class Admin::RoundsController < ApplicationController
     @admin_round = Round.new(round_params)
 
     if @admin_round.save
-      render json: @admin_round, status: :created
+      render json: @admin_round, status: :created, location: admin_round_path(@admin_round)
     else
       render json: @admin_round.errors, status: :unprocessable_entity
     end

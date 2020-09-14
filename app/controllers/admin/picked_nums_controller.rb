@@ -10,7 +10,7 @@ class Admin::PickedNumsController < ApplicationController
     @picked_num = PickedNum.new(picked_num_params)
     @picked_num.save
 
-    render json: @picked_num, status: :created
+    render json: @picked_num, status: :created, location: admin_picked_nums_path(@picked_num)
   end
 
   def destroy

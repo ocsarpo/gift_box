@@ -20,4 +20,8 @@ class RoundTest < ActiveSupport::TestCase
     assert_not @round.valid?
     assert @round.errors.messages[:draw].any?
   end
+
+  def teardown
+    Round.delete_all
+  end
 end

@@ -22,4 +22,8 @@ class PickedNumTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
+
+  def teardown
+    PickedNum.delete_all
+  end
 end

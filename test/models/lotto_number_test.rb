@@ -45,4 +45,9 @@ class LottoNumberTest < ActiveSupport::TestCase
 
     assert counter_before + 1 == counter_after
   end
+
+  def teardown
+    PickedNum.delete_all
+    LottoNumber.delete_all
+  end
 end

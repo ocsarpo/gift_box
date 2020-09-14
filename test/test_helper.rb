@@ -1,8 +1,21 @@
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
+require 'database_cleaner'
+
+DatabaseCleaner.strategy = :transaction
+
+module AroundEachTest
+  def before_setup
+    super
+    DatabaseCleaner.clean 
+    DatabaseCleaner.start    
+  end
+end
 
 class ActiveSupport::TestCase
+  include AroundEachTest
+  
   # Run tests in parallel with specified workers
   # parallelize(workers: :number_of_processors)
   parallelize(workers: 1)
