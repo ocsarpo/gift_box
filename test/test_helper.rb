@@ -10,4 +10,9 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def decoded_jwt_token_from_response(token)
+    secret = Rails.application.credentials[:devise_jwt_secret_key]    
+    token = token.remove("Bearer ")
+    JWT.decode(token, secret, true, algorithm: 'HS256')
+  end
 end
