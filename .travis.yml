@@ -1,19 +1,20 @@
 language: ruby
 rvm:
-  - 2.6.5
+- 2.6.5
 cache:
-  - bundler
-  - yarn
+- bundler
+- yarn
 services:
-  - mysql
+- mysql
 before_install:
-  - cp config/database.yml.travis config/database.yml  
-before_script:  
-  - bundle install --jobs=3 --retry=3
-  - yarn
-  - RAILS_ENV=test bundle exec rails generate devise:install --skip --quite
-  - RAILS_ENV=test bundle exec rake db:create --trace
-  - RAILS_ENV=test bundle exec rake db:migrate --trace
+- cp config/database.yml.travis config/database.yml
+before_script:
+- bundle install --jobs=3 --retry=3
+- yarn
+- RAILS_ENV=test bundle exec rails generate devise:install --skip --quite
+- RAILS_ENV=test bundle exec rake db:create --trace
+- RAILS_ENV=test bundle exec rake db:migrate --trace
 script:
-  - bundle exec rake test
-  # - bundle exec rake test:system
+- bundle exec rake test
+env:
+  secure: yiDscdThe4sx5Z8UtxwYT8fn7O4bJrdQbBLxWVtrc8EOIwt+p/gtmBH4KEGSfL4gwEfsZQcjhmmztIB/CQ6WY3txx6kiylWzgrWfnsGTPsN4Cokzdb02/4DkC4ckf2cpJuwF0V83N//vG4wilc3p5hUG9HbHIxeUtnD+IGzzOFNO0Ty+nwVCkXzzwm6nEY33gcdzkubb3dqEUMWXDPF7XhzZGHEIB/ndPVF8/bLH/QUVqTUxMbANvGT+m1aqKQQ4QgoGFC7mq4LjAvQyqw5qjv0UzM3HzjaHGLArcR95B/qNaUcReeGoVk0KZ1l/nQoF4x4FVoLt9kyiR0X8k1TxCzqHoTtHGj88VlLGCy7+a2mh4/+0vc7+isDoQUndMYTb4jSCcwd6hkIxlKMpqXif2Z78ksSjIeUCEAgNPwxJZJSBTGVnwL3L3idiqOHzDj187laz0fovs544akdi77QCYE/hjbpo12CMydG0RZD+YsjimYZJiZTzFq9ij84TPrNZMDvDDjcK0VbGLDIaGeXgKos4qvfWIbYkllkAGRlhg6WTtJk6CxHh9yhpfHXemk5MCXRAkjCkWtGZ8Zi4uLH3f3HgqrcmvB0v2Rvxmq0JQVJ4PLGWYZ+FAx0EXImZqlSd1erx/ObyzsW6E+cN3Zg8oGsHQD0p4QhAi/vpgOz9Lhc=
