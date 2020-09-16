@@ -39,11 +39,17 @@ class LottoNumberTest < ActiveSupport::TestCase
     num = lotto_numbers(:one)
     round = rounds(:one)
 
-    counter_before = num.picked_nums_count
-    num.picked_nums.create(round: round)
-    counter_after = num.picked_nums_count
+    assert_difference 'num.picked_nums_count' do
+      num.picked_nums.create(round: round)
+    end
+  end
 
-    assert counter_before + 1 == counter_after
+  test "increase bonus number" do
+    num = lotto_numbers(:one)
+
+    assert_difference 'num.bonus_count' do
+      num.increase_bonus_count
+    end
   end
 
   def teardown

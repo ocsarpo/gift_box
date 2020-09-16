@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_14_162550) do
+ActiveRecord::Schema.define(version: 2020_09_16_111315) do
 
   create_table "jwt_denylist", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "jti", null: false
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2020_09_14_162550) do
     t.integer "picked_nums_count", default: 0, unsigned: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "bonus_count", default: 0, unsigned: true
     t.index ["num"], name: "index_lotto_numbers_on_num", unique: true
   end
 

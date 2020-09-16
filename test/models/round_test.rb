@@ -32,9 +32,13 @@ class RoundTest < ActiveSupport::TestCase
   test "picked_num is nested attributes of round" do
     @round.round = 1
     @round.draw = Time.zone.now
-    @round.picked_nums.build([{lotto_number: lotto_numbers(:one)}, {lotto_number: lotto_numbers(:two)}])
+    @round.picked_nums.build([
+      {lotto_number: lotto_numbers(:one)},
+      {lotto_number: lotto_numbers(:two)}
+      ])
 
-    assert_equal @round.picked_nums.first.round.round, @round.picked_nums.second.round.round 
+    assert_equal @round.picked_nums.first.round.round,
+                  @round.picked_nums.second.round.round 
   end
 
   def teardown

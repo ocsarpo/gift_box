@@ -19,9 +19,16 @@ class PickedNumTest < ActiveSupport::TestCase
     assert_not @picked.valid?
     assert @picked.errors.messages[:round].any?
   end
-  # test "the truth" do
-  #   assert true
-  # end
+
+  test "increase lotto_number bonus count after bonus picked_num create" do
+    @picked.lotto_number = lotto_numbers(:one)
+    @picked.round = rounds(:one)
+    @picked.bonus = true
+
+    assert_difference '@picked.lotto_number.bonus_count' do
+      @picked.save!
+    end
+  end
 
   def teardown
     PickedNum.delete_all
