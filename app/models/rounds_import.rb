@@ -26,8 +26,10 @@ class RoundsImport
   end
 
   def load_imported_items
+    lottos = LottoNumber.all
     spreadsheet = open_spreadsheet
     header = spreadsheet.row(HEADER_ROW)
+    
     (DATA_ROW_START..spreadsheet.last_row).map do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
       next if Round.find_by(round: row["round"]) # 업데이트는 하지않음
@@ -37,13 +39,13 @@ class RoundsImport
         draw: row["draw_date"]
       )
       round.picked_nums.build([
-          {lotto_number: LottoNumber.find_by(num: row["num1"])},
-          {lotto_number: LottoNumber.find_by(num: row["num2"])},
-          {lotto_number: LottoNumber.find_by(num: row["num3"])},
-          {lotto_number: LottoNumber.find_by(num: row["num4"])},
-          {lotto_number: LottoNumber.find_by(num: row["num5"])},
-          {lotto_number: LottoNumber.find_by(num: row["num6"])},
-          {lotto_number: LottoNumber.find_by(num: row["bonus"]), bonus: true}
+          { lotto_number: lottos.select { |e| e.num == row["num1"] }.first },
+          { lotto_number: lottos.select { |e| e.num == row["num2"] }.first },
+          { lotto_number: lottos.select { |e| e.num == row["num3"] }.first },
+          { lotto_number: lottos.select { |e| e.num == row["num4"] }.first },
+          { lotto_number: lottos.select { |e| e.num == row["num5"] }.first },
+          { lotto_number: lottos.select { |e| e.num == row["num6"] }.first },
+          { lotto_number: lottos.select { |e| e.num == row["bonus"]}.first, bonus: true}
         ])
       
       round
