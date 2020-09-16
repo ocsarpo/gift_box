@@ -3,9 +3,9 @@ class V1::RoundsController < ApplicationController
 
   # GET /v1/rounds
   def index
-    @v1_rounds = Round.all
-
-    render json: @v1_rounds
+    @wins_info = Round.last&.wins_info
+    
+    render json: @wins_info
   end
 
   # GET /v1/rounds/1

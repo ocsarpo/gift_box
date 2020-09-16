@@ -27,5 +27,5 @@ Rails.application.routes.draw do
     resources :rounds_imports, only: [:new, :create]
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  root 'v1/lotto_nums#index'
+  root 'v1/rounds#index'
 end

@@ -14,4 +14,5 @@ two:
 fix_<%= i %>:
   num: <%= i %>
   name: guy_<%= i %>
+  picked_nums_count: 1
 <% end %>

@@ -1,11 +1,16 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  lotto_number: 1
-  round_id: 1
+  lotto_number: one
+  round: extra
   bonus: false
 
-two:
-  lotto_number: 2
-  round_id: 2
-  bonus: true
+<% ln = [:one, :two, :fix_3, :fix_4, :fix_5, :fix_6, :fix_7 ]%>
+<% [:one, :two, :last].each do |round| %>
+  <% 7.times do |i| %>
+round_<%= round.to_s %>_<%= i %>:  
+  lotto_number: <%= ln[i] %>
+  round: <%= round %>
+  bonus: <%= (i+1)%7 == 0 %>
+  <% end %>
+<% end %>

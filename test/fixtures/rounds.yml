@@ -1,8 +1,16 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 one:
-  round: 50501212
+  round: 142
   draw: 2020-09-15
 
 two:
-  round: 4954912
+  round: 143
+  draw: 2020-09-15
+
+extra:
+  round: 145
+  draw: 2020-09-15
+
+last:
+  round: 144
   draw: 2020-09-15

@@ -5,4 +5,8 @@ class Round < ApplicationRecord
   validates :round, :draw, presence: true
   validates :round, numericality: {only_integer: true, greater_than: 0}
   validates :round, uniqueness: true
+
+  def wins_info
+    retval = RoundService.new.wins_info(self)
+  end
 end
