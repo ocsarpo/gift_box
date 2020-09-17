@@ -63,23 +63,36 @@ class RoundTest < ActiveSupport::TestCase
   end
 
   test "paging" do
-    offset = 0
-    limit = 1
-    rounds = Round.page(offset, limit,
-              "id, round, draw", "draw", "desc")
-    assert_equal rounds.size, 1
+    rounds = Round.page({
+      page: 2,
+      fields: "id, round, draw",
+      order_field: "draw",
+      order_method: "desc"
+    })
+    assert_equal rounds[:self], 2
+  end
 
-    offset = 0
-    limit = 100
-    rounds = Round.page(offset, limit,
-              "id, round, draw", "draw", "desc")
-    assert_equal rounds.size, 10
+  test "paging under the 0" do
+    rounds = Round.page({
+      page: 0,
+      fields: "id, round, draw",
+      order_field: "draw",
+      order_method: "desc"
+    })
+    assert_equal rounds[:self], 1
+  end
 
-    offset = 0
-    limit = 100
-    rounds = Round.page(offset, limit,
-              "id, round, draw", "draw", "desc", 11)
-    assert_equal rounds.size, 11
+  test "paging over the last" do
+    rounds = Round.page({
+      page: 10000,
+      fields: "id, round, draw",
+      order_field: "draw",
+      order_method: "desc"
+    })
+    
+    total = Round.all.length
+    last = (total/10.to_f).ceil
+    assert_equal rounds[:self], last
   end
 
   def teardown

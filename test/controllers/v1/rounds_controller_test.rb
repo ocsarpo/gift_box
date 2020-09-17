@@ -6,13 +6,16 @@ class V1::RoundsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    offset, limit = 0, 10
-    get v1_rounds_url(offset: offset, limit: limit), as: :json
+    page = 1
+    get v1_rounds_url(page: page), as: :json
     json = JSON(response.body)
 
-    rounds = Round.page(offset, limit,
-              "id, round, draw", "draw", "desc")
-              .select('id, round, draw')
+    rounds = Round.page({
+      page: page,
+      fields: "id, round, draw",      
+      order_field: "draw",
+      order_method: "desc"      
+    })
     rounds = JSON(rounds.to_json)
     
     assert_response :success

@@ -3,8 +3,14 @@ class V1::RoundsController < ApplicationController
 
   # GET /v1/rounds
   def index
-    offset, limit = params[:offset], params[:limit]
-    @rounds = Round.page(offset, limit,"id, round, draw", "draw", "desc")
+    page = params[:page]
+    @rounds = Round.page({
+      page: page,
+      fields: "id, round, draw",      
+      order_field: "draw",
+      order_method: "desc"      
+    })
+    
     render json: @rounds
   end
 
