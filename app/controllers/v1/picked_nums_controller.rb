@@ -1,9 +1,4 @@
 class V1::PickedNumsController < ApplicationController
-    def index
-        @picked_nums = PickedNum.all
-
-        render json:@picked_nums, status: :ok
-    end
     
     private
     

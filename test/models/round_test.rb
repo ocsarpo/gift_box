@@ -46,17 +46,40 @@ class RoundTest < ActiveSupport::TestCase
     round = rounds(:last)
     # https://semaphoreci.com/community/tutorials/mocking-in-ruby-with-minitest
     # https://docs.ruby-lang.org/en/2.0.0/MiniTest/Mock.html
-    mock.expect :wins_info, {wins: [1,2,3,4,5,6], bonus: 7}, [round]
+    mock.expect :wins_info, {
+      round: round.round, wins: [1,2,3,4,5,6], bonus: 7
+    }, [round]
 
     retval = RoundService.stub :new, mock do
       mock.wins_info(round)
     end
-
+    
+    assert_equal retval[:round], round.round
     assert_equal retval[:wins].sort, [1,2,3,4,5,6]
     assert_equal retval[:bonus], 7
 
     assert_mock mock
     # assert mock.verify # assert_mock 내부에서 검증함
+  end
+
+  test "paging" do
+    offset = 0
+    limit = 1
+    rounds = Round.page(offset, limit,
+              "id, round, draw", "draw", "desc")
+    assert_equal rounds.size, 1
+
+    offset = 0
+    limit = 100
+    rounds = Round.page(offset, limit,
+              "id, round, draw", "draw", "desc")
+    assert_equal rounds.size, 10
+
+    offset = 0
+    limit = 100
+    rounds = Round.page(offset, limit,
+              "id, round, draw", "draw", "desc", 11)
+    assert_equal rounds.size, 11
   end
 
   def teardown

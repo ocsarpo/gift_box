@@ -1,4 +1,44 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+minor_1:
+  round: 101
+  draw: 2020-09-15
+
+minor_2:
+  round: 102
+  draw: 2020-09-15
+
+minor_3:
+  round: 103
+  draw: 2020-09-15
+
+minor_4:
+  round: 104
+  draw: 2020-09-15
+
+minor_5:
+  round: 105
+  draw: 2020-09-15
+
+minor_6:
+  round: 106
+  draw: 2020-09-15
+
+minor_7:
+  round: 107
+  draw: 2020-09-15
+
+minor_8:
+  round: 108
+  draw: 2020-09-15
+
+minor_9:
+  round: 109
+  draw: 2020-09-15
+
+minor_10:
+  round: 110
+  draw: 2020-09-15
+          
 one:
   round: 142
   draw: 2020-09-15

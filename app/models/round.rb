@@ -1,4 +1,6 @@
 class Round < ApplicationRecord
+  include Pageable
+
   has_many :picked_nums, dependent: :destroy
   accepts_nested_attributes_for :picked_nums
 

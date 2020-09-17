@@ -7,6 +7,7 @@ class RoundServiceTest < ActiveSupport::TestCase
 
     numbers = round_service.wins_info(round)
 
+    assert_equal numbers[:round], round.round
     assert_equal numbers[:wins].sort, [1,2,3,4,5,6]
     assert_equal numbers[:bonus], 7
   end

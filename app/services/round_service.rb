@@ -8,6 +8,7 @@ class RoundService
     picked_nums = round.picked_nums.includes(:lotto_number)
 
     {
+      round: round.round,
       wins: wins(picked_nums).sort,
       bonus: bonus(picked_nums)
     }    

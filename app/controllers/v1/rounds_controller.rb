@@ -3,14 +3,23 @@ class V1::RoundsController < ApplicationController
 
   # GET /v1/rounds
   def index
-    @wins_info = Round.last&.wins_info
-    
-    render json: @wins_info
+    offset, limit = params[:offset], params[:limit]
+    @rounds = Round.page(offset, limit,"id, round, draw", "draw", "desc")
+    render json: @rounds
   end
 
   # GET /v1/rounds/1
   def show
-    render json: @v1_round
+    @wins_info = @v1_round&.wins_info
+
+    render json: @wins_info
+  end
+
+  # GET /v1/rounds/latest
+  def latest
+    @wins_info = Round.last&.wins_info
+
+    render json: @wins_info
   end
 
   private

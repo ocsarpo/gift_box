@@ -14,10 +14,14 @@ Rails.application.routes.draw do
     }
 
   namespace :v1 do
-    resources :picked_nums, only: [:index]
+    resources :picked_nums, only: []
     resources :lotto_numbers, only: [:index, :show]
     resources :sessions, only: [:create, :destroy]
-    resources :rounds, only: [:index, :show]
+    resources :rounds, only: [:index, :show] do
+      collection do
+        get 'latest'
+      end
+    end
   end
 
   namespace :admin do
