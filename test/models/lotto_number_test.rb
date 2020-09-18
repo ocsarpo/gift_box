@@ -52,6 +52,28 @@ class LottoNumberTest < ActiveSupport::TestCase
     end
   end
 
+  test "only_wins_count" do
+    drawed = @number.picked_nums_count
+    bonus = @number.bonus_count
+    only_wins = drawed - bonus
+
+    assert_equal @number.wins_only_count, only_wins
+  end
+
+  test "draws_rate" do
+    last_round = Round.last.round
+    ln = lotto_numbers(:one)
+    percent = 21.0
+
+    mock = Minitest::Mock.new
+    mock.expect :draws_rate, percent, [ln]
+    retval = RoundService.stub :new, mock do
+      mock.draws_rate(ln)
+    end
+
+    assert_mock mock
+  end
+
   def teardown
     PickedNum.delete_all
     LottoNumber.delete_all

@@ -8,7 +8,15 @@ class Round < ApplicationRecord
   validates :round, numericality: {only_integer: true, greater_than: 0}
   validates :round, uniqueness: true
 
+  def self.last
+    order(round: :desc).first
+  end
+
+  def self.first
+    order(round: :asc).first
+  end
+
   def wins_info
-    retval = RoundService.new.wins_info(self)
+    RoundService.new.wins_info(self)
   end
 end

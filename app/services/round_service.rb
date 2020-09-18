@@ -4,6 +4,10 @@ class RoundService
     # ...
   end
 
+  def draws_rate(ln, round)
+    percent = (ln.wins_only_count / round.to_f * 100.0).round(3)
+  end
+
   def wins_info(round)
     picked_nums = round.picked_nums.includes(:lotto_number)
 

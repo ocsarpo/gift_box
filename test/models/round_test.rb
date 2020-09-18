@@ -95,6 +95,24 @@ class RoundTest < ActiveSupport::TestCase
     assert_equal rounds[:self], last
   end
 
+  test "override Round.first" do
+    rounds = Round.all.map(&:round)
+    rounds.sort!
+
+    first_round = Round.first.round
+
+    assert_equal rounds.first, first_round
+  end
+
+  test "override Round.last" do
+    rounds = Round.all.map(&:round)
+    rounds.sort!
+
+    last_round = Round.last.round
+
+    assert_equal rounds.last, last_round
+  end
+
   def teardown
     PickedNum.delete_all
     Round.delete_all
