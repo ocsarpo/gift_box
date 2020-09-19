@@ -15,8 +15,4 @@ class Round < ApplicationRecord
   def self.first
     order(round: :asc).first
   end
-
-  def wins_info
-    RoundService.new.wins_info(self)
-  end
 end

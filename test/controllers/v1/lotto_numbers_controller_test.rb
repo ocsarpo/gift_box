@@ -17,11 +17,26 @@ class V1::LottoNumbersControllerTest < ActionDispatch::IntegrationTest
     ln = lotto_numbers(:one)
     get v1_lotto_number_path(ln)
     assert_response :ok
+    
+    mock = Minitest::Mock.new    
+    mock.expect :details, {
+            id: ln.id,
+            num: ln.num,
+            wins: ln.wins_only_count,
+            bonus: ln.bonus_count,
+            odds: 0.69          
+          }
+    retval = LottoNumberService.stub :new, mock do
+      mock.details
+    end
 
-    lotto_num1 = JSON(ln.to_json)
-    json = JSON(response.body)    
+    assert_mock mock
 
-    assert_equal json, lotto_num1
+    json = JSON(response.body)
+
+    assert_equal json["id"], retval[:id]
+    assert_equal json["wins"], retval[:wins]
+    assert_equal json["odds"], retval[:odds]
   end
 
 end

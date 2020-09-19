@@ -16,14 +16,14 @@ class V1::RoundsController < ApplicationController
 
   # GET /v1/rounds/1
   def show
-    @wins_info = @v1_round&.wins_info
+    @wins_info = wins_info(@v1_round)
 
     render json: @wins_info
   end
 
   # GET /v1/rounds/latest
   def latest
-    @wins_info = Round.last&.wins_info
+    @wins_info = wins_info(Round.last)
 
     render json: @wins_info
   end
@@ -37,5 +37,9 @@ class V1::RoundsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def round_params
       params.fetch(:round, {})
+    end
+
+    def wins_info(round)
+      RoundService.new(round).wins_info
     end
 end

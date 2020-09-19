@@ -6,14 +6,18 @@ class V1::LottoNumbersController < ApplicationController
   end
 
   def show
-    ln = LottoNumber.find_by(id: params[:id])
+    ln = LottoNumber.find_by(id: params[:id])    
 
-    render json: ln, status: :ok
+    render json: details(ln), status: :ok
   end
 
   private
 
   def lotto_num_params
       params.require(:lotto_number).permit(:num, :name)        
-  end   
+  end
+
+  def details(ln)
+    LottoNumberService.new(ln).details
+  end
 end

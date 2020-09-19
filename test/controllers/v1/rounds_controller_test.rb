@@ -2,7 +2,7 @@ require 'test_helper'
 
 class V1::RoundsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @v1_round = rounds(:one)
+    @round = rounds(:one)
   end
 
   test "should get index" do
@@ -23,23 +23,46 @@ class V1::RoundsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show v1_round" do
-    get v1_round_url(@v1_round), as: :json
+    get v1_round_url(@round), as: :json
+
+    mock = Minitest::Mock.new
+    mock.expect :wins_info, {
+      round: @round.round, wins: [1,2,3,4,5,6], bonus: 7
+    }
+    retval = RoundService.stub :new, mock do
+      mock.wins_info
+    end
+    
+    assert_mock mock
 
     json = JSON(response.body)
-    round = JSON(@v1_round.wins_info.to_json)
 
-    assert_equal json, round
     assert_response :success
+    assert_equal json["round"], retval[:round]
+    assert_equal json["wins"], retval[:wins]
   end
 
   test "should show latest round wins_info" do
     get latest_v1_rounds_path, as: :json
 
-    json = JSON(response.body)
-    last = JSON(Round.last.wins_info.to_json)
+    mock = Minitest::Mock.new
+    round = rounds(:last)
+    mock.expect :wins_info, {
+      round: round.round, wins: [1,2,3,4,5,6], bonus: 7
+    }
+    retval = RoundService.stub :new, mock do
+      mock.wins_info
+    end
     
-    assert_equal json, last
+    assert_mock mock
+
+    json = JSON(response.body)
+
     assert_response :success
+    assert_equal json["round"], retval[:round]
+    assert_equal json["wins"], retval[:wins]
   end
 
 end
+  # https://semaphoreci.com/community/tutorials/mocking-in-ruby-with-minitest
+  # https://docs.ruby-lang.org/en/2.0.0/MiniTest/Mock.html

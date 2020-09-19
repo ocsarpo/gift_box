@@ -1,18 +1,15 @@
 class RoundService
+  attr_reader :round
 
-  def initialize
-    # ...
+  def initialize(round)
+    @round = round
   end
 
-  def draws_rate(ln, round)
-    percent = (ln.wins_only_count / round.to_f * 100.0).round(3)
-  end
-
-  def wins_info(round)
-    picked_nums = round.picked_nums.includes(:lotto_number)
+  def wins_info
+    picked_nums = @round.picked_nums.includes(:lotto_number)
 
     {
-      round: round.round,
+      round: @round.round,
       wins: wins(picked_nums).sort,
       bonus: bonus(picked_nums)
     }    
