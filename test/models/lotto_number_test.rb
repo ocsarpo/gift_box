@@ -52,6 +52,14 @@ class LottoNumberTest < ActiveSupport::TestCase
     end
   end
 
+  test "decrease bonus number" do
+    num = lotto_numbers(:one)
+
+    assert_difference 'num.bonus_count', -1 do
+      num.decrease_bonus_count
+    end
+  end
+
   test "only_wins_count" do
     drawed = @number.picked_nums_count
     bonus = @number.bonus_count
@@ -68,6 +76,42 @@ class LottoNumberTest < ActiveSupport::TestCase
     details.reject!{|k| selected.include? k}
 
     assert details.empty?    
+  end
+
+  test "draw_probability change after picked_nums create" do
+    ln = lotto_numbers(:one)
+    before = ln.draw_probability
+    
+    round = Round.new(
+      round: 2000,
+      draw: Time.zone.now
+    )
+    round.picked_nums.build([
+        { lotto_number: ln },
+      ])    
+    round.save!    
+
+    after = ln.draw_probability
+
+    refute_equal before, after
+  end
+  
+  test "draw_probability change after picked_nums destroy" do
+    ln = lotto_numbers(:one)
+    before = ln.draw_probability
+    round = Round.new(
+      round: 2000,
+      draw: Time.zone.now
+    )
+    round.picked_nums.build([
+        { lotto_number: ln },
+      ])    
+    round.save!      
+    round.destroy
+
+    after = ln.draw_probability
+
+    refute_equal before, after
   end
 
   def teardown

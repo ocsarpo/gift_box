@@ -22,6 +22,9 @@ Rails.application.routes.draw do
         get 'latest'
       end
     end
+
+    get 'draw', to: 'draws#draw'
+    get 'draw/random', to: 'draws#random'
   end
 
   namespace :admin do

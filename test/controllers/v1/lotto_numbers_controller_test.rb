@@ -24,7 +24,7 @@ class V1::LottoNumbersControllerTest < ActionDispatch::IntegrationTest
             num: ln.num,
             wins: ln.wins_only_count,
             bonus: ln.bonus_count,
-            odds: 0.69          
+            odds: ln.draw_probability.to_s
           }
     retval = LottoNumberService.stub :new, mock do
       mock.details

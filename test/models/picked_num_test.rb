@@ -30,6 +30,17 @@ class PickedNumTest < ActiveSupport::TestCase
     end
   end
 
+  test "decrease lotto_number bonus count before bonus picked_num destroy" do
+    @picked.lotto_number = lotto_numbers(:one)
+    @picked.round = rounds(:one)
+    @picked.bonus = true
+    @picked.save!
+
+    assert_difference '@picked.lotto_number.bonus_count', -1 do
+      @picked.destroy
+    end
+  end
+  
   def teardown
     PickedNum.delete_all
   end

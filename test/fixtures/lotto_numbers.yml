@@ -4,15 +4,21 @@ one:
   num: 1
   name: 1번
   picked_nums_count: 1
+  bonus_count: 1
+  draw_probability: 13.0
 
 two:
   num: 2
   name: 2번
   picked_nums_count: 1
+  bonus_count: 1
+  draw_probability: 15.0
 
 <% 3.upto(45) do |i| %>
 fix_<%= i %>:
   num: <%= i %>
   name: guy_<%= i %>
   picked_nums_count: 1
+  bonus_count: 1
+  draw_probability: 13.0
 <% end %>

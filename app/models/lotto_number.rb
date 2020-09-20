@@ -18,4 +18,16 @@ class LottoNumber < ApplicationRecord
     self.bonus_count += 1
     self.save
   end
+
+  def decrease_bonus_count
+    self.bonus_count -= 1
+    self.save
+  end
+
+  def probability
+    round = Round.last.round # TODO: cache로 관리
+    prob = (wins_only_count / round.to_f * 100.0).round(2)
+    self.draw_probability = prob
+    self.save
+  end
 end

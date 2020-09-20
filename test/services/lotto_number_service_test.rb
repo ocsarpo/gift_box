@@ -7,12 +7,8 @@ class LottoNumberServiceTest < ActiveSupport::TestCase
   end
 
   test 'details' do
-    round = Round.last.round
-    percent = @ln.wins_only_count / round.to_f * 100.0
-    percent = percent.round(3)
-
     result = @ln_service.details
     
-    assert_equal percent, result[:odds]
+    assert_equal @ln.draw_probability, result[:odds]
   end
 end
