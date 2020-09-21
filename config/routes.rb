@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'rounds_imports/new'
-  get 'rounds_imports/create'
   devise_for :users,
     path: '',
     path_names: {
@@ -16,7 +14,6 @@ Rails.application.routes.draw do
   namespace :v1 do
     resources :picked_nums, only: []
     resources :lotto_numbers, only: [:index, :show]
-    resources :sessions, only: [:create, :destroy]
     resources :rounds, only: [:index, :show] do
       collection do
         get 'latest'
