@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Lotto::V1
-  class V1::RoundsControllerTest < ActionDispatch::IntegrationTest
+  class RoundsControllerTest < ActionDispatch::IntegrationTest
     setup do
       @round = rounds(:one)
     end
