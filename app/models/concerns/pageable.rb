@@ -13,11 +13,11 @@ module Pageable
       per_page     = args.fetch(:per_age, DEFAULT_PER_PAGE).to_i
 
       page_info = page_calculate(page, per_page)
-      _items = items(page_info[:self], per_page, fields, order_field, order_method)
+      items = _items(page_info[:self], per_page, fields, order_field, order_method)
 
       {
-        length: _items.length,
-        items: _items,
+        length: items.length,
+        items: items,
         total: page_info[:total],
         self: page_info[:self],
         first: page_info[:first],
@@ -28,7 +28,7 @@ module Pageable
     end
     private
 
-    def items(page, per_page, fields, order_field, order_method)
+    def _items(page, per_page, fields, order_field, order_method)
       offset = (page * per_page) - per_page
 
       order(order_field => order_method)
@@ -53,7 +53,7 @@ module Pageable
         self: page,
         prev: _prev,
         next: _next,
-        last: last
+        last: _last
       }
     end
   end 

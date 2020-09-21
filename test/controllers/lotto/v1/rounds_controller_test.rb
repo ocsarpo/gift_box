@@ -9,18 +9,30 @@ module Lotto::V1
     test "should get index" do
       page = 1
       get v1_rounds_url(page: page), as: :json
-      json = JSON(response.body)
 
-      rounds = Round.page({
-        page: page,
-        fields: "id, round, draw",      
-        order_field: "draw",
-        order_method: "desc"      
-      })
-      rounds = JSON(rounds.to_json)
+      mock = MiniTest::Mock.new
+      hash = { 
+        page: page, 
+        fields: "id, round, draw", 
+        order_field: "draw", 
+        order_method: "desc" 
+      }
+      expected = { 
+        length: 1, items: [Round.first],
+        total: 1, self: 1, first: 1, prev: 1,
+        next: 1, last: 1
+      }
+      mock.expect(:call, expected, [hash])
+      # https://github.com/seattlerb/minitest/issues/216
+      Round.stub(:page, mock) do
+        Round.page(hash)
+      end
+
+      assert_mock mock
+      json = JSON(response.body)
       
       assert_response :success
-      assert_equal json, rounds
+      assert_equal json.keys, expected.keys.map(&:to_s)
     end
 
     test "should show v1_round" do

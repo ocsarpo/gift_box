@@ -7,9 +7,9 @@ module Lotto::V1
       page = params[:page]
       @rounds = Round.page({
         page: page,
-        fields: "id, round, draw",      
+        fields: "id, round, draw",
         order_field: "draw",
-        order_method: "desc"      
+        order_method: "desc"
       })
       
       render json: @rounds

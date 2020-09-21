@@ -1,9 +1,11 @@
 require 'test_helper'
 
 class RoundTest < ActiveSupport::TestCase
-  
+  include PageableInterfaceTest
+
   def setup
     @round = Round.new
+    @object = Round  # PageableInterfaceTest 테스트용
   end
 
   test "round should greater than 0" do
